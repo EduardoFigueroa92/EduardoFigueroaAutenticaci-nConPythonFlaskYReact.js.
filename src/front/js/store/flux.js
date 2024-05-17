@@ -48,6 +48,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			}
+			registro : function({email, password}){
+				fetch(),{
+					method: 'POST',
+					headers:  { 'Content-Type': 'application/json', 'accept': 'application/json' },
+						body : JSON.stringify({'email' : email, 'password' : password})
+						.then(response => {
+							if (!response.ok) {
+								console.error('Error al enviar datos');
+								throw new Error('Error al enviar datos');
+							}
+							return response.json();
+						})
+						.then(data => {
+							console.log('Datos guardados correctamente:', data);
+							setStore({ contactos: data.contacts });
+						})
+						.catch(error => console.error('Error:', error))
+				}
+			}
+
 		}
 	};
 };
