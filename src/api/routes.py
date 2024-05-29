@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 api = Blueprint('api', __name__)
 # Allow CORS requests to this API
 CORS(api)
@@ -33,3 +34,24 @@ def add_user():
 
     return jsonify(new_user.serialize())
 
+@api.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+    if not email or not password: 
+        return jsonify({"message":"email and password are requiered"})
+    user = User.query.filter_by(email=email, password=password).first()
+    if not user: 
+        return jsonify({"message":"email or password are not correct"})
+    token = create_access_token(identity = user.id)
+    return jsonify({"message": token})
+    
+@api.route('/private', methods=['GET'])
+@jwt_required()
+def validate_token():
+    current_user_id = get_jwt_identity()
+    user = User.query.filter_by(id=current_user_id).first()
+    if not user:
+        raise APIException("user not found", status_code=404)
+    return jsonify("user autenticated"), 200
