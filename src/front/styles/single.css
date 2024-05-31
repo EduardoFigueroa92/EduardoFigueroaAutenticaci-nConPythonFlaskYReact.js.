@@ -1,0 +1,20 @@
+.form-label {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.form-control {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

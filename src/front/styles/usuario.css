@@ -1,0 +1,24 @@
+.container {
+    margin-top: 50px;
+}
+
+h1.text-danger {
+    font-size: 2em;
+    color: red;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #6c757d;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
